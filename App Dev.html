@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Cafe Portal - STI Global City</title>
+				<script src="app.js" defer=""></script>
+				<link rel="stylesheet" href="style.css">
+				<script src="script.js"></script>
+			</head>
+	<body>
+		<header>
+			<h1>🍴 CAFE PORTAL</h1>
+			<p class="subtitle">STI Global City</p>
+			<nav class="nav.button">
+				<button type="button" data-page="home">⌂ Home</button>
+				<button type="button" data-page="cart">
+					🛒 Cart (<span id="cart-count">0</span>)
+				</button>
+				<button type="button" data-page="orders">▤ Orders</button>
+				<button type="button" data-page="alerts">♧ Alerts</button>
+				<button type="button" data-page="profile">♙ Profile</button>
+			</nav>
+		</header>
+		<hr>
+
+			<main>
+				<!-- Each section acts like a separate page. JavaScript shows only one at a time. -->
+				<section id="home-page">
+					<p>Good day,</p>
+					<h2>
+						<span id="greeting-name">Cutie Pie</span> 👋
+					</h2>
+					<h3>Browse food and drinks</h3>
+					<label for="search">Search:</label>
+					<input type="search" id="search" placeholder="Search food or category...">
+						<p>Categories:</p>
+						<button type="button" data-category="All">All</button>
+						<button type="button" data-category="Best Sellers">🏆 Best Sellers</button>
+						<button type="button" data-category="Combo">🍱 Combo</button>
+						<button type="button" data-category="Desserts">🍰 Desserts</button>
+						<button type="button" data-category="Promos">🏷 Promos</button>
+						<button type="button" data-category="Drinks">🥤 Drinks</button>
+						<button type="button" data-category="Others">🍽 Others</button>
+						<h3 id="category-title">ALL ITEMS</h3>
+						<p id="item-count"></p>
+						<div id="product-list"></div>
+					</section>
+
+				<section id="cart-page" hidden="">
+					<h2>YOUR CART</h2>
+					<div id="cart-list"></div>
+					<h3>
+						Total: ₱<span id="cart-total">0.00</span>
+					</h3>
+					<form id="checkout-form">
+						<label for="customer-name">Your name:</label>
+						<input id="customer-name" name="customerName" required="">
+							<br>
+								<br>
+									<label for="order-notes">Order notes (optional):</label>
+									<input id="order-notes" name="notes" placeholder="e.g., No ice">
+										<br>
+											<br>
+												<button type="submit">Place Order</button>
+											</form>
+				</section>
+
+				<section id="orders-page" hidden="">
+					<h2>MY ORDERS</h2>
+					<div id="order-list">No orders yet.</div>
+				</section>
+
+				<section id="alerts-page" hidden="">
+					<h2>ALERTS</h2>
+					<ul id="alert-list">
+						<li>🔔 Welcome to Cafe Portal!</li>
+						<li>📢 Check your cart before placing an order.</li>
+					</ul>
+				</section>
+
+				<section id="profile-page" hidden="">
+					<h2>PROFILE</h2>
+					<form id="profile-form">
+						<label for="profile-name">Full name:</label>
+						<input id="profile-name" name="fullName" value="Juan" required="">
+							<br>
+								<br>
+									<label for="profile-email">Email:</label>
+									<input type="email" id="profile-email" name="email" placeholder="name@school.edu.ph">
+										<br>
+											<br>
+												<button type="submit">Save Profile</button>
+											</form>
+					<p id="profile-message"></p>
+				</section>
+			</main>
+
+			<hr>
+				<footer>CAFE PORTAL - STI Global City</footer>
+			</body>
+</html>

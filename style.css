@@ -1,0 +1,260 @@
+:root {
+	--navy: #10254a;
+	--navy-light: navy;
+	--yellow: #ffd43b;
+	--yellow-dark: #eab900;
+	--cream: #fffdf5;
+	--yellowgreen: #9acd32;
+	--ink: #18243a;
+	--muted: #68758a;
+	--border: #e4e8ef;
+	--shadow: 0 12px 30px rgba(16, 37, 74, 0.09);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	background: var(--cream);
+	color: var(--ink);
+	font-family: "Segoe UI", Arial, sans-serif;
+	line-height: 1,6;
+}
+
+header {
+	padding: 28px 24px 22px;
+	background: var(--yellow-dark);
+	color: white;
+	text-align: left;
+}
+
+header > nav.nav.button {
+	padding: 28px 24px 22px;
+	background: var(--yellow-dark);
+	color: white;
+}
+
+
+header h1 {
+	margin: 0;
+	color: var(--navy-light);
+	font-size: clamp(1.7rem, 4vw, 2.35rem);
+	letter-spacing: 0.04em;
+}
+
+
+header > p.subtitle {
+	margin: 2px 125px 20px;;
+	color: black;
+	text-align: left;
+}
+
+nav {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 0 0 0;
+	gap: 20px;
+}
+
+button {
+	min-height: 42px;
+	padding: 9px 50px;
+	border: 1px solid transparent;
+	border-radius: 10px;
+	background: var(--yellow-dark);
+	color: var(--navy);
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
+	transition: background-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+	align-self: right;
+}
+
+button:hover {
+	background: var(--yellowgreen);
+	box-shadow: 0 4px 12px rgba(16, 37, 74, 0.15);
+	transform: translateY(-1px);
+}
+
+button:focus-visible,
+input:focus-visible {
+	outline: 3px solid #4b8cff;
+	outline-offset: 2px;
+}
+
+nav button {
+	border-color: rgba(255, 255, 255, 0.2);
+	background: var(--navy-light);
+	color: white;
+}
+
+nav button:hover {
+	background: var(--yellow);
+	color: navy;
+}
+
+hr {
+	display: none;
+}
+
+main {
+	width: fit-content;
+	min-height: 60vh;
+	margin: 32px auto;
+	padding: clamp(20px, 4vw, 36px);
+	border: 1px solid var(--border);
+	border-radius: 18px;
+	background: white;
+	box-shadow: var(--shadow);
+}
+
+main > section > p:first-child {
+	margin-bottom: 0;
+	color: var(--muted);
+}
+
+h2,
+h3 {
+	color: var(--navy);
+	line-height: 1.25;
+}
+
+h2 {
+	margin: 4px 0 24px;
+	font-size: clamp(1.55rem, 3vw, 2rem);
+}
+
+h3 {
+	margin-top: 28px;
+}
+
+label {
+	display: inline-block;
+	margin: 8px 0 6px;
+	color: var(--navy);
+	font-weight: 600;
+}
+
+input {
+	width: min(100%, 480px);
+	min-height: 44px;
+	padding: 10px 12px;
+	border: 1px solid #cbd3df;
+	border-radius: 9px;
+	background: white;
+	color: var(--ink);
+	font: inherit;
+}
+
+input::placeholder {
+	color: #8993a3;
+}
+
+#home-page > input[type="search"] {
+	display: block;
+	margin-bottom: 22px;
+}
+
+#home-page > p:nth-of-type(2) {
+	margin-bottom: 8px;
+	color: var(--navy);
+	font-weight: 700;
+}
+
+button[data-category] {
+	margin: 4px 5px 4px 0;
+	border: 1px solid #f1d36c;
+	background: #fff8d9;
+}
+
+button[data-category]:hover {
+	border-color: var(--yellow-dark);
+	background: var(--yellow);
+}
+
+#category-title {
+	margin-bottom: 0;
+	padding-top: 12px;
+	border-top: 1px solid var(--border);
+}
+
+#item-count {
+	color: var(--muted);
+}
+
+#product-list,
+#cart-list,
+#order-list {
+	display: grid;
+	gap: 14px;
+}
+
+#product-list > *,
+#cart-list > *,
+#order-list > * {
+	padding: 16px;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	background: #fffefa;
+}
+
+form {
+	max-width: 520px;
+	padding: 20px;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	background: #f8faff;
+}
+
+form button {
+	margin-top: 8px;
+}
+
+#alert-list {
+	padding-left: 22px;
+}
+
+#alert-list li {
+	margin: 10px 0;
+	padding: 12px 14px;
+	border-left: 4px solid var(--yellow);
+	border-radius: 0 8px 8px 0;
+	background: #fff9df;
+}
+
+footer {
+	padding: 18px 16px 24px;
+	color: var(--muted);
+	text-align: center;
+	font-size: 0.9rem;
+}
+
+@media (max-width: 520px) {
+	header {
+		padding: 22px 14px 18px;
+	}
+
+	nav {
+		gap: 7px;
+	}
+
+	nav button {
+		padding: 8px 11px;
+		font-size: 0.10rem;
+	}
+
+	main {
+		width: min(100% - 20px, 1000px);
+		margin: 18px auto;
+		padding: 20px 16px;
+		border-radius: 14px;
+	}
+
+	form {
+		padding: 12px;
+	}
+}
