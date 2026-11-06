@@ -1,0 +1,21 @@
+{
+  "name": "cafe-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Café Portal web app and SQLite API",
+  "scripts": {
+    "start": "node Server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.22.3",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^6.0.1"
+  },
+  "allowScripts": {
+    "sqlite3@5.1.7": true
+  }
+}

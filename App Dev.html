@@ -1,102 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<title>Cafe Portal - STI Global City</title>
-				<script src="app.js" defer=""></script>
-				<link rel="stylesheet" href="style.css">
-				<script src="script.js"></script>
-			</head>
-	<body>
-		<header>
-			<h1>🍴 CAFE PORTAL</h1>
-			<p class="subtitle">STI Global City</p>
-			<nav class="nav.button">
-				<button type="button" data-page="home">⌂ Home</button>
-				<button type="button" data-page="cart">
-					🛒 Cart (<span id="cart-count">0</span>)
-				</button>
-				<button type="button" data-page="orders">▤ Orders</button>
-				<button type="button" data-page="alerts">♧ Alerts</button>
-				<button type="button" data-page="profile">♙ Profile</button>
-			</nav>
-		</header>
-		<hr>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Café Portal | STI College Global City</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Sign-in screen -->
+  <div id="auth-screen" class="auth-wrapper">
+    <div class="auth-hero">
+      <div class="brand-logo">
+        <div class="logo-icon">🍴</div>
+        <div>
+          <h1 class="brand-name">Café Portal</h1>
+          <p class="brand-sub">STI GLOBAL CITY</p>
+        </div>
+      </div>
+      <div class="hero-content">
+        <span class="badge">CAMPUS DINING, MADE SIMPLE</span>
+        <h2 class="hero-title">Good food,<br>less waiting.</h2>
+        <p class="hero-desc">Order ahead, pay securely, and pick up when it is ready—your campus break, back in your hands.</p>
+      </div>
+      <p class="hero-footer">Secure access for students, faculty, and café staff</p>
+    </div>
 
-			<main>
-				<!-- Each section acts like a separate page. JavaScript shows only one at a time. -->
-				<section id="home-page">
-					<p>Good day,</p>
-					<h2>
-						<span id="greeting-name">Cutie Pie</span> 👋
-					</h2>
-					<h3>Browse food and drinks</h3>
-					<label for="search">Search:</label>
-					<input type="search" id="search" placeholder="Search food or category...">
-						<p>Categories:</p>
-						<button type="button" data-category="All">All</button>
-						<button type="button" data-category="Best Sellers">🏆 Best Sellers</button>
-						<button type="button" data-category="Combo">🍱 Combo</button>
-						<button type="button" data-category="Desserts">🍰 Desserts</button>
-						<button type="button" data-category="Promos">🏷 Promos</button>
-						<button type="button" data-category="Drinks">🥤 Drinks</button>
-						<button type="button" data-category="Others">🍽 Others</button>
-						<h3 id="category-title">ALL ITEMS</h3>
-						<p id="item-count"></p>
-						<div id="product-list"></div>
-					</section>
+    <div class="auth-panel">
+      <div class="auth-card">
+        <span class="welcome-label">WELCOME BACK</span>
+        <h2 class="auth-heading">Sign in to your portal</h2>
+        <p class="auth-subtext">Choose your account type to continue.</p>
 
-				<section id="cart-page" hidden="">
-					<h2>YOUR CART</h2>
-					<div id="cart-list"></div>
-					<h3>
-						Total: ₱<span id="cart-total">0.00</span>
-					</h3>
-					<form id="checkout-form">
-						<label for="customer-name">Your name:</label>
-						<input id="customer-name" name="customerName" required="">
-							<br>
-								<br>
-									<label for="order-notes">Order notes (optional):</label>
-									<input id="order-notes" name="notes" placeholder="e.g., No ice">
-										<br>
-											<br>
-												<button type="submit">Place Order</button>
-											</form>
-				</section>
+        <!-- Choose account type -->
+        <div class="segmented-control">
+          <button class="seg-btn active" id="btn-tab-customer" onclick="switchMainRole('customer')">Customer</button>
+          <button class="seg-btn" id="btn-tab-staff" onclick="switchMainRole('staff')">Staff</button>
+        </div>
 
-				<section id="orders-page" hidden="">
-					<h2>MY ORDERS</h2>
-					<div id="order-list">No orders yet.</div>
-				</section>
+        <!-- Customer sign-in -->
+        <div id="customer-auth-container" class="auth-section">
+          <div class="form-card">
+            <div class="card-header-icon">
+              <span class="icon">👤</span>
+              <div>
+                <h3>Students & faculty</h3>
+                <p id="cust-sub-desc">Use your official STI Microsoft 365 account to securely access the menu and your orders.</p>
+              </div>
+            </div>
 
-				<section id="alerts-page" hidden="">
-					<h2>ALERTS</h2>
-					<ul id="alert-list">
-						<li>🔔 Welcome to Cafe Portal!</li>
-						<li>📢 Check your cart before placing an order.</li>
-					</ul>
-				</section>
+            <!-- Customer sign-in options -->
+            <div class="sub-segmented-control">
+              <button class="sub-seg-btn active" id="btn-sub-ms365" onclick="switchCustomerAuthMode('ms365')">Microsoft 365</button>
+              <button class="sub-seg-btn" id="btn-sub-idpass" onclick="switchCustomerAuthMode('idpass')">ID & Password</button>
+            </div>
 
-				<section id="profile-page" hidden="">
-					<h2>PROFILE</h2>
-					<form id="profile-form">
-						<label for="profile-name">Full name:</label>
-						<input id="profile-name" name="fullName" value="Juan" required="">
-							<br>
-								<br>
-									<label for="profile-email">Email:</label>
-									<input type="email" id="profile-email" name="email" placeholder="name@school.edu.ph">
-										<br>
-											<br>
-												<button type="submit">Save Profile</button>
-											</form>
-					<p id="profile-message"></p>
-				</section>
-			</main>
+            <!-- Microsoft sign-in -->
+            <div id="cust-ms365-view">
+              <button class="btn-ms365" onclick="loginWithMicrosoft()">
+                <svg width="18" height="18" viewBox="0 0 23 23">
+                  <path fill="#f35325" d="M1 1h10v10H1z"/>
+                  <path fill="#81bc06" d="M12 1h10v10H12z"/>
+                  <path fill="#05a6f0" d="M1 12h10v10H1z"/>
+                  <path fill="#ffba08" d="M12 12h10v10H12z"/>
+                </svg>
+                Continue with Microsoft 365
+              </button>
+            </div>
 
-			<hr>
-				<footer>CAFE PORTAL - STI Global City</footer>
-			</body>
+            <!-- ID and password sign-in -->
+            <form id="cust-idpass-view" class="login-form hidden" onsubmit="handleCustomerLogin(event)">
+              <div class="form-group">
+                <label>Student ID</label>
+                <input type="text" id="cust-id" placeholder="02000123456" inputmode="numeric" pattern="[0-9]{11}" maxlength="11" title="Enter your 11-digit student ID" required>
+              </div>
+              <div class="form-group">
+                <div class="label-row">
+                  <label>Password</label>
+                  <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+                <input type="password" id="cust-pass" placeholder="••••••••••••" required>
+              </div>
+              <button type="submit" class="btn-primary">Sign in to customer portal</button>
+              <p id="customer-login-feedback" class="login-feedback hidden" role="status" aria-live="polite"></p>
+            </form>
+            <button type="button" class="text-link-btn" id="show-register-btn" onclick="showRegistration()">Create a customer account</button>
+            <form id="cust-register-view" class="login-form hidden" onsubmit="handleCustomerRegistration(event)">
+              <div class="form-group">
+                <label>Student ID</label>
+                <input type="text" id="register-id" placeholder="02000123456" inputmode="numeric" pattern="[0-9]{11}" maxlength="11" title="Enter your 11-digit student ID" required>
+              </div>
+              <div class="form-group">
+                <label>Full name</label>
+                <input type="text" id="register-name" required>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="register-email" required>
+              </div>
+              <div class="form-group">
+                <label>Password (at least 8 characters)</label>
+                <input type="password" id="register-pass" minlength="8" required>
+              </div>
+              <button type="submit" class="btn-primary">Create account</button>
+              <p id="register-feedback" class="login-feedback hidden" role="status" aria-live="polite"></p>
+              <button type="button" class="text-link-btn" onclick="hideRegistration()">Back to sign in</button>
+            </form>
+          </div>
+          <p class="disclaimer-text">Use your customer ID and password to sign in.</p>
+        </div>
+
+        <!-- Staff sign-in -->
+        <div id="staff-auth-container" class="auth-section hidden">
+          <div class="form-card">
+            <form id="staff-idpass-view" class="login-form" onsubmit="handleStaffLogin(event)">
+              <div class="form-group">
+                <label>Staff ID</label>
+                <input type="text" id="staff-id" placeholder="STF-2048" required>
+              </div>
+              <div class="form-group">
+                <div class="label-row">
+                  <label>Password</label>
+                  <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+                <input type="password" id="staff-pass" placeholder="••••••••••••" required>
+              </div>
+              <button type="submit" class="btn-primary">Sign in to staff portal</button>
+              <p id="staff-login-feedback" class="login-feedback hidden" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+
+        <p class="copyright-text">© 2027 Café Portal · STI College Global City</p>
+      </div>
+
+      <!-- Support button -->
+      <button class="customer-service-btn" onclick="openSupport()">💬 Customer Service</button>
+    </div>
+  </div>
+
+  <!-- Support form and its confirmation toast -->
+  <div id="support-modal" class="support-modal hidden" onclick="handleSupportBackdrop(event)">
+    <section class="support-dialog" role="dialog" aria-modal="true" aria-labelledby="support-title" aria-describedby="support-description">
+      <header class="support-header">
+        <div>
+          <span class="section-label">CUSTOMER SERVICE</span>
+          <h2 id="support-title">How can we help?</h2>
+          <p id="support-description">Tell us what happened and our team will get back to you.</p>
+        </div>
+        <button class="support-close" type="button" aria-label="Close customer service" onclick="closeSupport()">×</button>
+      </header>
+      <form id="support-form" class="support-form" onsubmit="submitSupportTicket(event)">
+        <div class="support-fields">
+          <div class="form-group">
+            <label for="support-role">I am a</label>
+            <select id="support-role" class="styled-select" required>
+              <option value="customer">Customer</option>
+              <option value="staff">Staff</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="support-category">Category</label>
+            <select id="support-category" class="styled-select" required>
+              <option value="" disabled selected>Choose a category</option>
+              <option value="Order issue">Order issue</option>
+              <option value="Payment">Payment</option>
+              <option value="Account access">Account access</option>
+              <option value="Menu or availability">Menu or availability</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="support-name">Full name</label>
+            <input id="support-name" name="name" maxlength="100" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="support-email">Email address</label>
+            <input id="support-email" name="email" type="email" maxlength="254" placeholder="you@sti.edu.ph" required>
+          </div>
+          <div class="form-group support-full-width">
+            <label for="support-subject">Subject</label>
+            <input id="support-subject" name="subject" maxlength="120" placeholder="Briefly describe your concern" required>
+          </div>
+          <div class="form-group support-full-width">
+            <label for="support-message">What happened?</label>
+            <textarea id="support-message" name="message" maxlength="2000" placeholder="Include helpful details such as an order number, time, or error message." required></textarea>
+          </div>
+        </div>
+        <div class="support-actions">
+          <button class="support-cancel" type="button" onclick="closeSupport()">Cancel</button>
+          <button id="support-submit" class="support-submit" type="submit">Submit support ticket</button>
+        </div>
+      </form>
+    </section>
+  </div>
+  <div id="app-toast" class="app-toast hidden" role="status" aria-live="polite"></div>
+
+  <!-- Portal dashboard -->
+  <div id="app-screen" class="app-layout hidden">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-logo">
+        <div class="logo-icon small">☕</div>
+        <div>
+          <h1 class="brand-name small">Café Portal</h1>
+          <p class="brand-sub small">STI GLOBAL CITY</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="cart-trigger-btn" onclick="toggleCartDrawer()">
+          🛒 <span id="cart-badge-count" class="badge-count">0</span>
+        </button>
+        <div class="user-profile-widget">
+          <div class="avatar" id="header-avatar">AR</div>
+          <div class="user-info-text">
+            <span class="u-name" id="header-user-name">Alex Rivera</span>
+            <span class="u-role" id="header-user-role">Student · 2027</span>
+          </div>
+          <button class="logout-icon-btn" title="Logout" onclick="handleLogout()">➔</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <!-- Navigation -->
+      <aside class="sidebar">
+        <div class="user-card-summary">
+          <div class="avatar-large" id="sidebar-avatar">AR</div>
+          <div>
+            <h4 id="sidebar-name">Alex Rivera</h4>
+            <p id="sidebar-role">Student · 2027</p>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <button class="nav-btn active" id="nav-home" onclick="navigateTo('home')">🏠 Home</button>
+          <button class="nav-btn" id="nav-history" onclick="navigateTo('history')">🕒 Order History</button>
+          <button class="nav-btn" id="nav-tracking" onclick="navigateTo('tracking')">📦 Order Tracking</button>
+          <button class="nav-btn" id="nav-discounts" onclick="navigateTo('discounts')">🏷️ Discounts & Notification <span class="nav-badge">3</span></button>
+          <button class="nav-btn" id="nav-settings" onclick="navigateTo('settings')">⚙️ Settings</button>
+        </nav>
+      </aside>
+
+      <!-- Main pages -->
+      <main class="main-content">
+        <!-- Menu -->
+        <section id="page-home" class="view-page">
+          <div class="banner-card">
+            <span class="small-tag">GOOD MORNING, ALEX</span>
+            <h2>What are you craving today?</h2>
+            <p>Freshly prepared on campus. Order now and skip the line.</p>
+            <div class="search-box">
+              <span>🔍</span>
+              <input type="text" id="menu-search-input" placeholder="Search meals, drinks, and snacks..." onkeyup="filterMenu()">
+            </div>
+          </div>
+
+          <div class="menu-section">
+            <div class="section-header">
+              <div>
+                <span class="section-label">TODAY'S MENU</span>
+                <h3 class="section-title">Popular on campus</h3>
+              </div>
+              <div class="filter-pills">
+                <button class="pill-btn active" onclick="filterCategory('All', this)">All Items</button>
+                <button class="pill-btn" onclick="filterCategory('Meals', this)">Meals</button>
+                <button class="pill-btn" onclick="filterCategory('Drinks', this)">Drinks</button>
+                <button class="pill-btn" onclick="filterCategory('Snacks', this)">Snacks</button>
+              </div>
+            </div>
+
+            <div class="menu-grid" id="menu-items-grid">
+              <!-- Menu items load from the server -->
+            </div>
+            <p class="footnote">* The Most Ordered badge updates automatically from campus sales data.</p>
+          </div>
+        </section>
+
+        <!-- Order history -->
+        <section id="page-history" class="view-page hidden">
+          <div class="page-title-group">
+            <span class="section-label">ORDER HISTORY DAILY</span>
+            <h2>Today's order history</h2>
+            <p>Select an order to view its complete information.</p>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ORDER NUMBER</th>
+                  <th>ITEMS</th>
+                  <th>TIME</th>
+                  <th>STATUS</th>
+                  <th>INFORMATION</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <!-- Orders load from the server -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Order tracking -->
+        <section id="page-tracking" class="view-page hidden">
+          <div class="page-title-group">
+            <span class="section-label">ORDER TRACKING</span>
+            <h2>Your orders</h2>
+            <div class="alert-box">
+              ⚠️ Orders cannot be cancelled once the café starts preparing the food.
+            </div>
+          </div>
+          <div id="active-orders-container" class="empty-state-card">
+            You have no active orders right now.
+          </div>
+        </section>
+
+        <!-- Discount offers and recent notifications -->
+        <section id="page-discounts" class="view-page hidden">
+          <div class="page-title-group">
+            <span class="section-label">OFFERS & UPDATES</span>
+            <h2>Discounts and notifications</h2>
+            <p>Fresh café deals and important order updates in one place.</p>
+          </div>
+
+          <div class="offers-grid">
+            <div class="offer-card primary-card">
+              <span class="card-badge">STUDENT SPECIAL</span>
+              <h3>Save 15% on rice meals</h3>
+              <p>Show your STI student ID at pickup. Available Monday through Friday.</p>
+              <span class="expiry">Valid until September 30</span>
+            </div>
+            <div class="offer-card photo-card">
+              <div class="offer-content">
+                <span class="card-badge gold">AFTERNOON OFFER</span>
+                <h3>Buy 1, get 1 iced latte</h3>
+                <p>Available from 2:00 PM to 4:00 PM while supplies last.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="inbox-section">
+            <div class="inbox-header">
+              <h3>Recent notifications</h3>
+              <button class="text-link-btn" onclick="markAllNotificationsRead()">Mark all as read</button>
+            </div>
+            <div class="notification-list">
+              <div class="notif-item">
+                <div class="notif-dot active"></div>
+                <div class="notif-body">
+                  <h4>Order ready for pickup</h4>
+                  <p>CP-1046 is ready at the café counter.</p>
+                </div>
+                <span class="notif-time">2 minutes ago</span>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot active"></div>
+                <div class="notif-body">
+                  <h4>New student discount</h4>
+                  <p>Enjoy 15% off selected meals this month.</p>
+                </div>
+                <span class="notif-time">1 hour ago</span>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot"></div>
+                <div class="notif-body">
+                  <h4>Menu update</h4>
+                  <p>Caramel Iced Latte is back in stock.</p>
+                </div>
+                <span class="notif-time">Yesterday</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Profile, appearance, and notification preferences -->
+        <section id="page-settings" class="view-page hidden">
+          <div class="page-title-group">
+            <span class="section-label">PREFERENCES</span>
+            <h2>Settings</h2>
+            <p>Manage your profile and personalize your café portal.</p>
+          </div>
+
+          <div class="settings-grid">
+            <div class="settings-card profile-card">
+              <span class="card-subtitle">PROFILE</span>
+              <h3>Personal information</h3>
+              <p class="sub-text">Update the name and photo shown across your account.</p>
+              
+              <div class="profile-editor">
+                <div class="avatar-large" id="settings-avatar">AR</div>
+                <button class="btn-secondary">Change photo</button>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Full name</label>
+                  <input type="text" id="settings-name" value="Alex Rivera">
+                </div>
+                <div class="form-group">
+                  <label>Email address</label>
+                  <input type="email" id="settings-email" value="alex.rivera@sti.edu.ph">
+                </div>
+              </div>
+              <button class="btn-primary-dark" onclick="saveSettings()">Save profile</button>
+              <div id="delete-account-section" class="delete-account-section hidden">
+                <strong>Permanently delete account</strong>
+                <p class="sub-text">This permanently removes your account and all of your order history. This cannot be undone.</p>
+                <form class="delete-account-form" onsubmit="deleteCustomerAccount(event)">
+                  <div class="form-group">
+                    <label for="delete-account-password">Confirm your password</label>
+                    <input type="password" id="delete-account-password" autocomplete="current-password" required>
+                  </div>
+                  <button type="submit" class="btn-danger">Delete account permanently</button>
+                  <p id="delete-account-feedback" class="login-feedback hidden" role="status" aria-live="polite"></p>
+                </form>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <span class="card-subtitle">LANGUAGE</span>
+              <h3>Portal language</h3>
+              <p class="sub-text">Choose the language you prefer for navigation and notifications.</p>
+              <select class="styled-select">
+                <option selected>English</option>
+                <option>Filipino</option>
+              </select>
+            </div>
+
+            <div class="settings-card">
+              <span class="card-subtitle">APPEARANCE</span>
+              <h3>Dark mode</h3>
+              <p class="sub-text">Switch between light and dark appearances.</p>
+              <div class="segmented-control">
+                <button class="seg-btn active">Light mode</button>
+                <button class="seg-btn">Dark mode</button>
+              </div>
+            </div>
+
+            <div class="settings-card full-width">
+              <span class="card-subtitle">NOTIFICATIONS</span>
+              <h3>Notification settings</h3>
+              <div class="toggle-list">
+                <div class="toggle-row">
+                  <div>
+                    <strong>Order updates</strong>
+                    <p>Status changes, pickup alerts, and cancellations</p>
+                  </div>
+                  <input type="checkbox" checked class="toggle-checkbox">
+                </div>
+                <div class="toggle-row">
+                  <div>
+                    <strong>Discounts and offers</strong>
+                    <p>Student deals and limited-time café promotions</p>
+                  </div>
+                  <input type="checkbox" checked class="toggle-checkbox">
+                </div>
+                <div class="toggle-row">
+                  <div>
+                    <strong>Café announcements</strong>
+                    <p>Schedule, availability, and menu updates</p>
+                  </div>
+                  <input type="checkbox" class="toggle-checkbox">
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-card full-width danger-card">
+              <div>
+                <strong class="danger-title">Log out of your account</strong>
+                <p class="sub-text">You will return to the Café Portal sign-in screen.</p>
+              </div>
+              <button class="btn-danger" onclick="handleLogout()">Log out</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Cart drawer -->
+  <div id="cart-drawer-overlay" class="drawer-overlay hidden" onclick="toggleCartDrawer()"></div>
+  <div id="cart-drawer" class="cart-drawer hidden">
+    <div class="drawer-header">
+      <div>
+        <span class="section-label">YOUR CART</span>
+        <h3>Review order</h3>
+      </div>
+      <button class="close-btn" onclick="toggleCartDrawer()">✕</button>
+    </div>
+
+    <div class="drawer-body" id="cart-items-list">
+      <!-- Cart items -->
+      <div class="empty-cart-view">
+        <span class="cart-icon">🛒</span>
+        <p>Your cart is empty</p>
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="payment-methods">
+        <label>Payment method</label>
+        <div class="payment-grid">
+          <button class="pay-btn active" onclick="selectPayment('Cash', this)">Cash</button>
+          <button class="pay-btn" onclick="selectPayment('GCash', this)">GCash</button>
+          <button class="pay-btn" onclick="selectPayment('Maya', this)">Maya</button>
+          <button class="pay-btn" onclick="selectPayment('Bank transfer', this)">Bank transfer</button>
+        </div>
+      </div>
+
+      <div class="total-row">
+        <span>Total</span>
+        <strong id="cart-total-price">₱0</strong>
+      </div>
+      <button class="btn-primary-dark full-width" id="place-order-btn" onclick="placeOrder()" disabled>Place order</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
